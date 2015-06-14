@@ -11,7 +11,8 @@
 New user <input placeholder="username" type="text" ng-model="username"/>
 <input placeholder="email" type="text" ng-model="email"/>
 <input placeholder="********" type="password" ng-model="password"/>
-<select ng-model="userRole" ng-options="role.name for role in roles"></select> 
+&nbsp;Role&nbsp;<select ng-model="userRole" ng-options="role.name for role in roles"></select>
+&nbsp;Organization&nbsp;<select ng-model="userOrganization" ng-options="organization.name for organization in organizations"></select>
 <input type="submit" value="Sign Up" ng-click = "signup();"/>
 
 <hr />
@@ -21,11 +22,8 @@ Search: <input type="text" ng-model="search.name">
 	<li ng-repeat="user in users | filter: search">
 	
 		<a href="#/user/{{user._id}}">{{user.username}}, {{user.email}}</a>
-		
-		role  
-		<select 
-			ng-model="user.role._id" 
-			ng-options="role._id as role.name for role in roles"></select> 
+		role <select ng-model="user.role._id" ng-options="role._id as role.name for role in roles"></select>
+		organization <select ng-model="user.organization._id" ng-options="organization._id as organization.name for organization in organizations"></select>
 			
 		<button ng-click = "update($index);">update</button>
 		<button ng-click = "remove($index);">delete</button>

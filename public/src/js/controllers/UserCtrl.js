@@ -1,9 +1,13 @@
-app.controller('UserCtrl', ['$scope', 'Users', 'Roles', function($scope, Users, Roles) {
+app.controller('UserCtrl', ['$scope', 'Users', 'Roles', 'Organizations', function($scope, Users, Roles, Organizations) {
 	
 	$scope.users = Users.query();
 	Roles.query(function(res) {
 		$scope.roles = res;
 		$scope.userRole = $scope.roles[0];
+	});
+	Organizations.query(function(res) {
+		$scope.organizations = res;
+		$scope.userOrganization = $scope.organizations[0];
 	});
 	
 	$scope.signup = function() {
@@ -12,7 +16,7 @@ app.controller('UserCtrl', ['$scope', 'Users', 'Roles', function($scope, Users, 
 		if(!$scope.email || $scope.email.length < 1) return;
 		if(!$scope.password || $scope.password.length < 1) return;
 		
-		var user = new Users({ username: $scope.username, email: $scope.email, password: $scope.password, role: $scope.userRole._id });
+		var user = new Users({ username: $scope.username, email: $scope.email, password: $scope.password, role: $scope.userRole._id, organization: $scope.userOrganization._id });
 
 		user.$save(function() {
 			$scope.users.push(user);

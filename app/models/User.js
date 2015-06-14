@@ -9,7 +9,8 @@ var UserSchema = new mongoose.Schema({
 	password: { type: String, required: true },
 	token: { type: String, default: '' },
 	updated_at: { type: Date, default: Date.now },
-	role: { type: Schema.Types.ObjectId, ref: 'Role', required: true }
+	role: { type: Schema.Types.ObjectId, ref: 'Role', required: true },
+	organization: { type: Schema.Types.ObjectId, ref: 'Organization', required: true }
 });
 
 //bcrypt

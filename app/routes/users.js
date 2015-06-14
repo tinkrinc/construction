@@ -15,7 +15,7 @@ router.get('/', authCheck.ensure, function(req, res, next) {
 	
 	User
 		.find()
-		.populate('role')
+		.populate('role organization')
 		.exec(function(e, users) {
 			if(e) return next(e);
 			res.json(users);
@@ -34,7 +34,7 @@ router.get('/:id', authCheck.ensure, function(req, res, next) {
 	User.findById(req.params.id, function(e, user) {
 		if(e) return next(e);
 
-		user.populate('role', function(e) {
+		user.populate('role organization', function(e) {
 			if(e) return next(e);
 			res.json(user);
 		});
@@ -53,7 +53,7 @@ router.post('/', authCheck.ensure, function(req, res, next) {
 	User.create(req.body, function(e, user) {
 		if(e) return next(e);
 		
-		user.populate('role', function(e) {
+		user.populate('role organization', function(e) {
 			if(e) return next(e);
 			res.json(user);
 		});
@@ -72,7 +72,7 @@ router.put('/:id', authCheck.ensure, function(req, res, next) {
 	User.findByIdAndUpdate(req.params.id, req.body, function(e, user) {
 		if(e) return next(e);
 		
-		user.populate('role', function(e) {
+		user.populate('role organization', function(e) {
 			if(e) return next(e);
 			res.json(user);
 		});

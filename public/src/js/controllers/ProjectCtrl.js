@@ -1,7 +1,10 @@
 app.controller('ProjectCtrl', ['$scope', 'Projects', 'Organizations', function ($scope, Projects, Organizations) {
     
 	$scope.projects = Projects.query();
-	$scope.organizations = Organizations.query();
+	Organizations.query(function(res) {
+		$scope.organizations = res;
+		$scope.projectOrganization = $scope.organizations[0];
+	});
 	
 	$scope.save = function() {
 		
