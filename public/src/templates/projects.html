@@ -21,9 +21,7 @@ Search: <input type="text" ng-model="search.name">
 	<li ng-repeat="project in projects | filter: search">
 	
 		{{project.name}}
-		<select 
-			ng-model="project.organization._id" 
-			ng-options="organization._id as organization.name for organization in organizations"></select> 
+		&nbsp;Organization&nbsp;<select ng-model="project.organization._id" ng-options="organization._id as organization.name for organization in organizations"></select> 
 		<button ng-click = "remove($index);">delete</button>
 		
 	</li>

@@ -17,13 +17,13 @@ New user <input placeholder="username" type="text" ng-model="username"/>
 
 <hr />
 
-Search: <input type="text" ng-model="search.name">
+Search: <input type="text" ng-model="search.username">
 <ul>
 	<li ng-repeat="user in users | filter: search">
 	
 		<a href="#/user/{{user._id}}">{{user.username}}, {{user.email}}</a>
-		role <select ng-model="user.role._id" ng-options="role._id as role.name for role in roles"></select>
-		organization <select ng-model="user.organization._id" ng-options="organization._id as organization.name for organization in organizations"></select>
+		&nbsp;Role&nbsp;<select ng-model="user.role._id" ng-options="role._id as role.name for role in roles"></select>
+		&nbsp;Organization&nbsp;<select ng-model="user.organization._id" ng-options="organization._id as organization.name for organization in organizations"></select>
 			
 		<button ng-click = "update($index);">update</button>
 		<button ng-click = "remove($index);">delete</button>
