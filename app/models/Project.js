@@ -7,4 +7,4 @@ var ProjectSchema = new mongoose.Schema({
 	organization: { type: Schema.Types.ObjectId, ref: 'Organization', required: true }
 });
 
-module.exports = mongoose.model('project', ProjectSchema);
+module.exports = mongoose.model('Project', ProjectSchema);

@@ -1,0 +1,28 @@
+<a href = "#/users">Users</a>
+<a href = "#/roles">Roles</a>
+
+<a href = "#/organizations">Organizations</a>
+<a href = "#/projects">Projects</a>
+<a href = "#/units">Units</a>
+
+<button ng-click = "logout();">logout</button>
+
+<hr />
+
+New unit 
+<input type="text" placeholder = "1201" ng-model="newUnit">
+&nbsp;Project <select ng-model="unitProject" ng-options="project.name for project in projects"></select> 
+<button ng-click="save()">Create</button>
+
+<hr />
+
+Search: <input type="text" ng-model="search.number">
+<ul>
+	<li ng-repeat="unit in units | filter: search">
+	
+		{{unit.number}}
+		&nbsp;Project&nbsp;<select ng-model="unit.project._id" ng-options="project._id as project.name for project in projects"></select> 
+		<button ng-click = "remove($index);">delete</button>
+		
+	</li>
+</ul>

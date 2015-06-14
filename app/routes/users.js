@@ -42,6 +42,20 @@ router.get('/:id', authCheck.ensure, function(req, res, next) {
 	
 });
 
+/* GET /users/me */
+router.get('/me', authCheck.ensure, function(req, res, next) {
+	
+	User.findById(req.user._id, function(e, user) {
+		if(e) return next(e);
+
+		user.populate('role organization', function(e) {
+			if(e) return next(e);
+			res.json(user);
+		});
+	});
+	
+});
+
 /* POST /users */
 router.post('/', authCheck.ensure, function(req, res, next) {
 

@@ -1,10 +1,14 @@
 app.controller('UserCtrl', ['$scope', 'Users', 'Roles', 'Organizations', function($scope, Users, Roles, Organizations) {
 	
-	$scope.users = Users.query();
+	Users.query(function(res) {
+		$scope.users = res;
+	});
+	
 	Roles.query(function(res) {
 		$scope.roles = res;
 		$scope.userRole = $scope.roles[0];
 	});
+	
 	Organizations.query(function(res) {
 		$scope.organizations = res;
 		$scope.userOrganization = $scope.organizations[0];

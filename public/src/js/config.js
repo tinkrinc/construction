@@ -28,6 +28,11 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
 			controller: 'ProjectCtrl'
 		})
 		
+		.when('/units', {
+			templateUrl: '/templates/units.html',
+			controller: 'UnitCtrl'
+		})
+		
 		.otherwise({
         	redirectTo: '/login'
       	});
