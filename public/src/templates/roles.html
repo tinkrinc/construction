@@ -1,0 +1,64 @@
+<a href = "#/users">Users</a>
+<a href = "#/roles">Roles</a>
+
+<a href = "#/organizations">Organizations</a>
+<a href = "#/projects">Projects</a>
+
+<button ng-click = "logout();">logout</button>
+
+<hr />
+
+New role <input placeholder="Publisher" type="text" ng-model="name"/><br />
+&nbsp;&nbsp;&nbsp;User access: 
+	C <input type = 'checkbox' ng-model="access_users.create" /> 
+	R <input type = 'checkbox' ng-model="access_users.read" /> 
+	U <input type = 'checkbox' ng-model="access_users.update" /> 
+	D <input type = 'checkbox' ng-model="access_users.delete" /><br />
+&nbsp;&nbsp;&nbsp;Role access: 
+	C <input type = 'checkbox' ng-model="access_roles.create" /> 
+	R <input type = 'checkbox' ng-model="access_roles.read" /> 
+	U <input type = 'checkbox' ng-model="access_roles.update" /> 
+	D <input type = 'checkbox' ng-model="access_roles.delete" /><br />
+&nbsp;&nbsp;&nbsp;Organization access: 
+	C <input type = 'checkbox' ng-model="access_organizations.create" /> 
+	R <input type = 'checkbox' ng-model="access_organizations.read" /> 
+	U <input type = 'checkbox' ng-model="access_organizations.update" /> 
+	D <input type = 'checkbox' ng-model="access_organizations.delete" /><br />
+&nbsp;&nbsp;&nbsp;Project access: 
+	C <input type = 'checkbox' ng-model="access_projects.create" /> 
+	R <input type = 'checkbox' ng-model="access_projects.read" /> 
+	U <input type = 'checkbox' ng-model="access_projects.update" /> 
+	D <input type = 'checkbox' ng-model="access_projects.delete" /><br />
+<button ng-click="save()">Create</button>
+
+<hr />
+
+<ul>
+	<li ng-repeat="role in roles">
+	
+		{{role.name}}<br /> 
+		&nbsp;&nbsp;&nbsp;User access: 
+			C <input type = 'checkbox' ng-model="role.access.users.create" /> 
+			R <input type = 'checkbox' ng-model="role.access.users.read" /> 
+			U <input type = 'checkbox' ng-model="role.access.users.update" /> 
+			D <input type = 'checkbox' ng-model="role.access.users.delete" /><br />
+		&nbsp;&nbsp;&nbsp;Role access: 
+			C <input type = 'checkbox' ng-model="role.access.roles.create" /> 
+			R <input type = 'checkbox' ng-model="role.access.roles.read" /> 
+			U <input type = 'checkbox' ng-model="role.access.roles.update" /> 
+			D <input type = 'checkbox' ng-model="role.access.roles.delete" /><br />
+		&nbsp;&nbsp;&nbsp;Organization access: 
+			C <input type = 'checkbox' ng-model="role.access.organizations.create" /> 
+			R <input type = 'checkbox' ng-model="role.access.organizations.read" /> 
+			U <input type = 'checkbox' ng-model="role.access.organizations.update" /> 
+			D <input type = 'checkbox' ng-model="role.access.organizations.delete" /><br />
+		&nbsp;&nbsp;&nbsp;Project access: 
+			C <input type = 'checkbox' ng-model="role.access.projects.create" /> 
+			R <input type = 'checkbox' ng-model="role.access.projects.read" /> 
+			U <input type = 'checkbox' ng-model="role.access.projects.update" /> 
+			D <input type = 'checkbox' ng-model="role.access.projects.delete" /><br />
+		<button ng-click = "update($index);">update</button>
+		<button ng-click = "remove($index);">delete</button>
+		
+	</li>
+</ul>

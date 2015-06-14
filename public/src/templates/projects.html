@@ -1,0 +1,30 @@
+<a href = "#/users">Users</a>
+<a href = "#/roles">Roles</a>
+
+<a href = "#/organizations">Organizations</a>
+<a href = "#/projects">Projects</a>
+
+<button ng-click = "logout();">logout</button>
+
+<hr />
+
+New project 
+<input type="text" placeholder = "Sky Condos" ng-model="newProject">
+<input type="text" placeholder = "123 John St." ng-model="newAddress">
+&nbsp;Organization <select ng-model="projectOrganization" ng-options="organization.name for organization in organizations"></select> 
+<button ng-click="save()">Create</button>
+
+<hr />
+
+Search: <input type="text" ng-model="search.name">
+<ul>
+	<li ng-repeat="project in projects | filter: search">
+	
+		{{project.name}}
+		<select 
+			ng-model="project.organization._id" 
+			ng-options="organization._id as organization.name for organization in organizations"></select> 
+		<button ng-click = "remove($index);">delete</button>
+		
+	</li>
+</ul>
