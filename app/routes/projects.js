@@ -14,7 +14,7 @@ router.get('/', authCheck.ensure, function(req, res, next) {
 	}
 	
 	Project
-		.find()
+		.find({ 'organization': req.query.organization })
 		.populate('organization')
 		.exec(function(e, projects) {
 			if(e) return next(e);

@@ -9,13 +9,15 @@ app.controller('UnitCtrl', ['$scope', 'Units', 'Projects', function ($scope, Uni
 	
 	$scope.save = function() {
 		
-		if(!$scope.newUnit || $scope.newUnit.length < 1) return;
+		if(!$scope.unitNumber || $scope.unitNumber.length < 1) return;
 		
-		var unit = new Units({ number: $scope.newUnit, project: $scope.unitProject._id });
+		var unit = new Units({ number: $scope.unitNumber, bedrooms: $scope.unitBedrooms, bathrooms: $scope.unitBathrooms, project: $scope.unitProject._id });
 	
 		unit.$save(function() {
 			$scope.units.push(unit);
-			$scope.newUnit = ''; // clear textbox
+			$scope.unitNumber = '';
+			$scope.unitBedrooms = '';
+			$scope.unitBathrooms = '';
 		});
 		
 	}

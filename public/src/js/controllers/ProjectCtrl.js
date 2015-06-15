@@ -1,16 +1,19 @@
-app.controller('ProjectCtrl', ['$scope', 'Projects', 'Organizations', function ($scope, Projects, Organizations) {
+app.controller('ProjectCtrl', ['$scope', '$localStorage', 'Projects', 'Organizations', function ($scope, $localStorage, Projects, Organizations) {
     
-	$scope.projects = Projects.query();
 	Organizations.query(function(res) {
 		$scope.organizations = res;
-		$scope.projectOrganization = $scope.organizations[0];
+		$scope.contextOrganization = $scope.organizations[0];
+		
+		Projects.query({ organization: $scope.contextOrganization._id }, function(res) {
+			$scope.projects = res;
+		});
 	});
 	
 	$scope.save = function() {
 		
 		if(!$scope.newProject || $scope.newProject.length < 1) return;
 		
-		var project = new Projects({ name: $scope.newProject, address: $scope.newAddress, organization: $scope.projectOrganization._id });
+		var project = new Projects({ name: $scope.newProject, address: $scope.newAddress, organization: $scope.contextOrganization._id });
 	
 		project.$save(function() {
 			$scope.projects.push(project);
@@ -33,6 +36,14 @@ app.controller('ProjectCtrl', ['$scope', 'Projects', 'Organizations', function (
 		
 		Projects.remove({id: project._id}, function() {
 			$scope.projects.splice(index, 1);
+		});
+		
+	}
+	
+	$scope.updateContext = function() {
+		
+		Projects.query({ organization: $scope.contextOrganization._id }, function(res) {
+			$scope.projects = res;
 		});
 		
 	}
