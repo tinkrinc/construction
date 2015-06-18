@@ -1,8 +1,9 @@
-app.controller('ProjectCtrl', ['$scope', '$localStorage', 'Projects', 'Organizations', function ($scope, $localStorage, Projects, Organizations) {
+app.controller('ProjectCtrl', ['$scope', '$localStorage', 'Functions', 'Projects', 'Organizations', function ($scope, $localStorage, Functions, Projects, Organizations) {
     
 	Organizations.query(function(res) {
 		$scope.organizations = res;
-		$scope.contextOrganization = $scope.organizations[0];
+		
+		$scope.contextOrganization = Functions.search_array($localStorage.contextOrganization._id, $scope.organizations) || $scope.organizations[0];
 		
 		Projects.query({ organization: $scope.contextOrganization._id }, function(res) {
 			$scope.projects = res;
@@ -41,6 +42,8 @@ app.controller('ProjectCtrl', ['$scope', '$localStorage', 'Projects', 'Organizat
 	}
 	
 	$scope.updateContext = function() {
+		
+		$localStorage.contextOrganization = $scope.contextOrganization;
 		
 		Projects.query({ organization: $scope.contextOrganization._id }, function(res) {
 			$scope.projects = res;
