@@ -1,10 +1,13 @@
 <navigation></navigation>
 
+Context&nbsp;<select ng-model="contextOrganization" ng-options="organization.name for organization in organizations" ng-change = "updateContext();"></select>
+
+<hr />
+
 New user <input placeholder="username" type="text" ng-model="username"/>
 <input placeholder="email" type="text" ng-model="email"/>
 <input placeholder="********" type="password" ng-model="password"/>
 &nbsp;Role&nbsp;<select ng-model="userRole" ng-options="role.name for role in roles"></select>
-&nbsp;Organization&nbsp;<select ng-model="userOrganization" ng-options="organization.name for organization in organizations"></select>
 <input type="submit" value="Sign Up" ng-click = "signup();"/>
 
 <hr />
@@ -15,7 +18,6 @@ Search: <input type="text" ng-model="search.username">
 	
 		<a href="#/user/{{user._id}}">{{user.username}}, {{user.email}}</a>
 		&nbsp;Role&nbsp;<select ng-model="user.role._id" ng-options="role._id as role.name for role in roles"></select>
-		&nbsp;Organization&nbsp;<select ng-model="user.organization._id" ng-options="organization._id as organization.name for organization in organizations"></select>
 			
 		<button ng-click = "update($index);">update</button>
 		<button ng-click = "remove($index);">delete</button>

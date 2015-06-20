@@ -7,7 +7,7 @@ app.factory('Functions', [function() {
 		        if(array[i]._id === key)
 		            return array[i];
 		    
-		    return null;
+		    return undefined;
 		    
 		}
 	}

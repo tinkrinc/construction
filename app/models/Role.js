@@ -27,6 +27,12 @@ var RoleSchema = new mongoose.Schema({
 			read: { type: Boolean, default: false },
 			update: { type: Boolean, default: false },
 			delete: { type: Boolean, default: false }
+		},
+		inspections: { 
+			create: { type: Boolean, default: false },
+			read: { type: Boolean, default: false },
+			update: { type: Boolean, default: false },
+			delete: { type: Boolean, default: false }
 		}
 	},
 	updated_at: { type: Date, default: Date.now }

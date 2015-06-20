@@ -5,8 +5,8 @@ app.factory('AuthInterceptor', ['$q', '$location', '$localStorage', function($q,
 	        
             config.headers = config.headers || {};
             
-            if($localStorage.token)
-                config.headers['x-access-token'] = $localStorage.token;
+            if($localStorage.user)
+                config.headers['x-access-token'] = $localStorage.user.token;
 
             return config;
             

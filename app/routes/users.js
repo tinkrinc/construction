@@ -13,8 +13,10 @@ router.get('/', authCheck.ensure, function(req, res, next) {
 		return;
 	}
 	
+	var organization = req.query.organization || req.user.organization;
+	
 	User
-		.find()
+		.find({ 'organization': organization })
 		.populate('role organization')
 		.exec(function(e, users) {
 			if(e) return next(e);

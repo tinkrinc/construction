@@ -33,6 +33,11 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
 			controller: 'UnitCtrl'
 		})
 		
+		.when('/inspections', {
+			templateUrl: '/templates/inspections.html',
+			controller: 'InspectionCtrl'
+		})
+		
 		.otherwise({
         	redirectTo: '/login'
       	});

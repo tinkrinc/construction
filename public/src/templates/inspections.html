@@ -1,0 +1,21 @@
+<navigation></navigation>
+
+Context Organization&nbsp;<select ng-model="contextOrganization" ng-options="organization.name for organization in organizations" ng-change = "updateContextOrganization();"></select>
+&nbsp;Context Project&nbsp;<select ng-model="contextProject" ng-options="project.name for project in projects" ng-change = "updateContextInspection();"></select>
+
+<hr />
+
+New inspection 
+<button ng-click="save()">Create</button>
+
+<hr />
+
+<!-- Search: <input type="text" ng-model="search.name"> -->
+<ul>
+	<li ng-repeat="inspection in inspections | filter: search">
+	
+		{{inspection.updated_at}}
+		<button ng-click = "remove($index);">delete</button>
+		
+	</li>
+</ul>

@@ -6,7 +6,7 @@ app.controller('LoginCtrl', ['$scope', '$localStorage', '$location', 'Auth', fun
 		
 		Auth.login.go({ username: $scope.username, password: $scope.password }, function(user) {
 			
-			$localStorage.token = user.token;
+			$localStorage.user = user;
 			$scope.error = '';
 			$location.path('/users');
 			

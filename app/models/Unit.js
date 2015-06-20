@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+Schema = mongoose.Schema;
 
 var UnitSchema = new mongoose.Schema({
 	number: { type: Number, required: true },

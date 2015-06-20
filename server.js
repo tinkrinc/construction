@@ -18,6 +18,7 @@ var roles = require('./app/routes/roles');
 var organizations = require('./app/routes/organizations');
 var projects = require('./app/routes/projects');
 var units = require('./app/routes/units');
+var inspections = require('./app/routes/inspections');
 
 //db connection
 mongoose.connect('mongodb://localhost/construction');
@@ -55,6 +56,7 @@ app.use('/roles', roles);
 app.use('/organizations', organizations);
 app.use('/projects', projects);
 app.use('/units', units);
+app.use('/inspections', inspections);
 
 //web server listening
 app.listen(8000);

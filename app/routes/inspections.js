@@ -1,96 +1,96 @@
 var express = require('express');
 var router = express.Router();
+
 var mongoose = require('mongoose');
-var jwt = require('jsonwebtoken');
-var Unit = require('../models/Unit.js');
+var Inspection = require('../models/Inspection.js');
 var authCheck = require('../includes/auth.js');
 
-/* GET /units listing. */
+/* GET /inspection listing. */
 router.get('/', authCheck.ensure, function(req, res, next) {
 	
-	if(!req.user.role.access.projects.read) {
+	if(!req.user.role.access.inspections.read) {
 		res.json({ user_access: false });
 		return;
 	}
 	
 	var project = req.query.project;
 	
-	Unit
+	Inspection
 		.find({ 'project': project })
 		.populate('project')
-		.exec(function(e, units) {
+		.exec(function(e, inspections) {
 			if(e) return next(e);
-			res.json(units);
+			res.json(inspections);
 		});
 	
 });
 
-/* GET /units/id */
+/* GET /inspection/:id */
 router.get('/:id', authCheck.ensure, function(req, res, next) {
 	
-	if(!req.user.role.access.projects.read) {
+	if(!req.user.role.access.inspections.read) {
 		res.json({ user_access: false });
 		return;
 	}
-	
-	Unit.findById(req.params.id, function(e, unit) {
-		if(e) return next(e);
 
-		unit.populate('project', function(e) {
-			if(e) return next(e);
-			res.json(unit);
-		});
-	});
-	
-});
-
-/* POST /units */
-router.post('/', authCheck.ensure, function(req, res, next) {
-
-	if(!req.user.role.access.projects.create) {
-		res.json({ user_access: false });
-		return;
-	}
-	
-	Unit.create(req.body, function(e, unit) {
+	Inspection.findById(req.params.id, function(e, inspection) {
 		if(e) return next(e);
 		
-		unit.populate('project', function(e) {
+		inspection.populate('project', function(e) {
 			if(e) return next(e);
-			res.json(unit);
+			res.json(inspection);
 		});
 	});
 	
 });
 
-/* PUT /units/:id */
+/* POST /inspection */
+router.post('/', authCheck.ensure, function(req, res, next) {
+	
+	if(!req.user.role.access.inspections.create) {
+		res.json({ user_access: false });
+		return;
+	}
+	
+	Inspection.create(req.body, function(e, inspection) {
+		if(e) return next(e);
+		
+		inspection.populate('project', function(e) {
+			if(e) return next(e);
+			res.json(inspection);
+		});
+	});
+	
+});
+
+/* PUT /inspection/:id */
 router.put('/:id', authCheck.ensure, function(req, res, next) {
 	
-	if(!req.user.role.access.projects.update) {
+	if(!req.user.role.access.inspections.update) {
 		res.json({ user_access: false });
 		return;
 	}
-
-	Unit.findByIdAndUpdate(req.params.id, req.body, function(e, unit) {
+	
+	Inspection.findByIdAndUpdate(req.params.id, req.body, function(e, inspection) {
 		if(e) return next(e);
 		
-		unit.populate('project', function(e) {
+		inspection.populate('project', function(e) {
 			if(e) return next(e);
-			res.json(unit);
+			res.json(inspection);
 		});
 	});
 
 });
 
-/* DELETE /units/:id */
+/* DELETE /inspection/:id */
 router.delete('/:id', authCheck.ensure, function(req, res, next) {
 	
-	if(!req.user.role.access.projects.delete) {
+	if(!req.user.role.access.inspections.delete) {
 		res.json({ user_access: false });
 		return;
-	}	
+	}
 
-	Unit.findByIdAndRemove(req.params.id, req.body, function(e, post) {
+	Inspection.findByIdAndRemove(req.params.id, req.body, function(e, post) {
 		if(e) return next(e);
 		res.json(post);
 	});

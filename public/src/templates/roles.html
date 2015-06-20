@@ -21,6 +21,11 @@ New role <input placeholder="Publisher" type="text" ng-model="name"/><br />
 	R <input type = 'checkbox' ng-model="access_projects.read" /> 
 	U <input type = 'checkbox' ng-model="access_projects.update" /> 
 	D <input type = 'checkbox' ng-model="access_projects.delete" /><br />
+&nbsp;&nbsp;&nbsp;Inspection access: 
+	C <input type = 'checkbox' ng-model="access_inspections.create" /> 
+	R <input type = 'checkbox' ng-model="access_inspections.read" /> 
+	U <input type = 'checkbox' ng-model="access_inspections.update" /> 
+	D <input type = 'checkbox' ng-model="access_inspections.delete" /><br />
 <button ng-click="save()">Create</button>
 
 <hr />
@@ -49,6 +54,11 @@ New role <input placeholder="Publisher" type="text" ng-model="name"/><br />
 			R <input type = 'checkbox' ng-model="role.access.projects.read" /> 
 			U <input type = 'checkbox' ng-model="role.access.projects.update" /> 
 			D <input type = 'checkbox' ng-model="role.access.projects.delete" /><br />
+		&nbsp;&nbsp;&nbsp;Inspection access: 
+			C <input type = 'checkbox' ng-model="role.access.inspections.create" /> 
+			R <input type = 'checkbox' ng-model="role.access.inspections.read" /> 
+			U <input type = 'checkbox' ng-model="role.access.inspections.update" /> 
+			D <input type = 'checkbox' ng-model="role.access.inspections.delete" /><br />
 		<button ng-click = "update($index);">update</button>
 		<button ng-click = "remove($index);">delete</button>
 		

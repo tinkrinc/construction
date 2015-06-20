@@ -1,17 +1,20 @@
-app.controller('UnitCtrl', ['$scope', 'Units', 'Projects', function ($scope, Units, Projects) {
-    
-	$scope.units = Units.query();
+app.controller('UnitCtrl', ['$scope', '$localStorage', 'Functions', 'Units', 'Projects', function ($scope, $localStorage, Functions, Units, Projects) {
 	
 	Projects.query(function(res) {
 		$scope.projects = res;
-		$scope.unitProject = $scope.projects[0];
+		
+		$scope.contextProject = ($localStorage.project) ? Functions.search_array($localStorage.project._id, $scope.projects) :  $scope.projects[0];
+		
+		Units.query({ project: $scope.contextProject._id }, function(res) {
+			$scope.units = res;
+		});
 	});
 	
 	$scope.save = function() {
 		
 		if(!$scope.unitNumber || $scope.unitNumber.length < 1) return;
 		
-		var unit = new Units({ number: $scope.unitNumber, bedrooms: $scope.unitBedrooms, bathrooms: $scope.unitBathrooms, project: $scope.unitProject._id });
+		var unit = new Units({ number: $scope.unitNumber, bedrooms: $scope.unitBedrooms, bathrooms: $scope.unitBathrooms, project: $scope.contextProject._id });
 	
 		unit.$save(function() {
 			$scope.units.push(unit);
@@ -36,6 +39,16 @@ app.controller('UnitCtrl', ['$scope', 'Units', 'Projects', function ($scope, Uni
 		
 		Units.remove({id: unit._id}, function() {
 			$scope.units.splice(index, 1);
+		});
+		
+	}
+	
+	$scope.updateContext = function() {
+		
+		$localStorage.project = $scope.contextProject;
+		
+		Units.query({ project: $scope.contextProject._id }, function(res) {
+			$scope.units = res;
 		});
 		
 	}

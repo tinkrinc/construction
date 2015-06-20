@@ -3,7 +3,7 @@ app.controller('ProjectCtrl', ['$scope', '$localStorage', 'Functions', 'Projects
 	Organizations.query(function(res) {
 		$scope.organizations = res;
 		
-		$scope.contextOrganization = Functions.search_array($localStorage.contextOrganization._id, $scope.organizations) || $scope.organizations[0];
+		$scope.contextOrganization = ($localStorage.organization) ? Functions.search_array($localStorage.organization._id, $scope.organizations) :  $scope.organizations[0];
 		
 		Projects.query({ organization: $scope.contextOrganization._id }, function(res) {
 			$scope.projects = res;
@@ -43,7 +43,7 @@ app.controller('ProjectCtrl', ['$scope', '$localStorage', 'Functions', 'Projects
 	
 	$scope.updateContext = function() {
 		
-		$localStorage.contextOrganization = $scope.contextOrganization;
+		$localStorage.organization = $scope.contextOrganization;
 		
 		Projects.query({ organization: $scope.contextOrganization._id }, function(res) {
 			$scope.projects = res;

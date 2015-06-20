@@ -1,9 +1,12 @@
 <navigation></navigation>
 
+Context&nbsp;<select ng-model="contextProject" ng-options="project.name for project in projects" ng-change = "updateContext();"></select>
+
+<hr />
+
 New unit <input type="text" placeholder = "1201" ng-model="unitNumber">
 Bedrooms <input type="text" placeholder = "2" ng-model="unitBedrooms">
 Bathrooms <input type="text" placeholder = "1" ng-model="unitBathrooms">
-&nbsp;Project <select ng-model="unitProject" ng-options="project.name for project in projects"></select> 
 <button ng-click="save()">Create</button>
 
 <hr />
@@ -15,7 +18,6 @@ Search: <input type="text" ng-model="search.number">
 		#{{unit.number}}
 		Beds: {{unit.bedrooms}}
 		Baths: {{unit.bathrooms}}
-		&nbsp;Project&nbsp;<select ng-model="unit.project._id" ng-options="project._id as project.name for project in projects"></select> 
 		<button ng-click = "remove($index);">delete</button>
 		
 	</li>

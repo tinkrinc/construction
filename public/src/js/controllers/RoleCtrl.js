@@ -2,9 +2,11 @@ app.controller('RoleCtrl', ['$scope', 'Roles', function ($scope, Roles) {
     
     $scope.roles = Roles.query();
     
-    $scope.access_users = {}
-	$scope.access_roles = {}
-    $scope.access_organizations = {}
+    $scope.access_users = {};
+	$scope.access_roles = {};
+    $scope.access_organizations = {};
+    $scope.access_projects = {};
+    $scope.access_inspections = {};
 	
 	$scope.save = function() {
 		
@@ -31,6 +33,18 @@ app.controller('RoleCtrl', ['$scope', 'Roles', function ($scope, Roles) {
 					update: $scope.access_organizations.update,
 					delete: $scope.access_organizations.delete
 				},
+				projects: {
+					create: $scope.access_projects.create,
+					read: $scope.access_projects.read,
+					update: $scope.access_projects.update,
+					delete: $scope.access_projects.delete
+				},
+				inspections: {
+					create: $scope.access_inspections.create,
+					read: $scope.access_inspections.read,
+					update: $scope.access_inspections.update,
+					delete: $scope.access_inspections.delete
+				}
 			} 
 		});
 	
