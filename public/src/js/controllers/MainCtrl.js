@@ -1,4 +1,4 @@
-app.controller('MainCtrl', ['$scope', '$localStorage', '$location', 'AuthService', function ($scope, $localStorage, $location, AuthService) {
+app.controller('MainCtrl', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
 	
 	$scope.logout = function() {
 		
@@ -6,16 +6,9 @@ app.controller('MainCtrl', ['$scope', '$localStorage', '$location', 'AuthService
 			.logout()
 			.then(
 				function(res) {
-					
-					$localStorage.$reset();
 					$location.path('/login');
-							
 				},
-				function(res) {
-					
-					
-					
-				}
+				function(res) {}
 			);
 		
 	}

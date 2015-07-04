@@ -39,6 +39,6 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
 		})
 		
 		.otherwise({
-        	redirectTo: '/login'
+        	redirectTo: '/users'
       	});
 }]);

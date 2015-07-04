@@ -11,10 +11,10 @@ app.service('AuthService', ['$q', '$http', '$localStorage', function($q, $http, 
 	this.login = function(u, p) {
 		
 		var deferred = $q.defer();
-		var user = this.check;
+		var user = this.check();
 		
 		if(user !== false) {
-			deferred.resolve(user);
+			deferred.resolve();
 		} else {
 			
 			$http.post('/auth/login/', { username: u, password: p })
@@ -22,7 +22,7 @@ app.service('AuthService', ['$q', '$http', '$localStorage', function($q, $http, 
 					function(res) {
 						$localStorage.user = res.data;
 						
-						deferred.resolve(res.data);
+						deferred.resolve();
 					},
 					function(res) {
 						deferred.reject(res);
@@ -43,7 +43,9 @@ app.service('AuthService', ['$q', '$http', '$localStorage', function($q, $http, 
 		$http.post('/auth/logout/')
 			.then(
 				function(res) {
-					deferred.resolve(res.data);
+					$localStorage.$reset();
+					
+					deferred.resolve();
 				},
 				function(res) {
 					deferred.reject(res);

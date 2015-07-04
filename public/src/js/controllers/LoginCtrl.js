@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', ['$scope', '$localStorage', '$location', 'AuthService', function ($scope, $localStorage, $location, AuthService) {
+app.controller('LoginCtrl', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
 	
 	$scope.error = '';
 	
