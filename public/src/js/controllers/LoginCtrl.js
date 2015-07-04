@@ -1,23 +1,32 @@
-app.controller('LoginCtrl', ['$scope', '$localStorage', '$location', 'Auth', function ($scope, $localStorage, $location, Auth) {
+app.controller('LoginCtrl', ['$scope', '$localStorage', '$location', 'AuthService', function ($scope, $localStorage, $location, AuthService) {
 	
 	$scope.error = '';
 	
+	//check if user is already logged in
+	if(AuthService.check() !== false)
+		$location.path('/users');
+	
+	//login event
 	$scope.login = function() {
 		
-		Auth.login.go({ username: $scope.username, password: $scope.password }, function(user) {
-			
-			$localStorage.user = user;
-			$scope.error = '';
-			$location.path('/users');
-			
-		}, function(e) {
-			
-			if(e.status == 401)
-				$scope.error = 'Invalid credentials';
-			else
-				$scope.error = 'Something went wrong';
-				
-		});
+		AuthService
+			.login($scope.username, $scope.password)
+			.then(
+				function(res) {
+					
+					$scope.error = '';
+					$location.path('/users');
+						
+				},
+				function(res) {
+					
+					if(res.status == 401)
+						$scope.error = 'Invalid credentials';
+					else
+						$scope.error = 'Something went wrong';
+						
+				}
+			);
 		
 	}
 	
