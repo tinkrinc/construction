@@ -13,8 +13,6 @@ app.factory('AuthInterceptor', ['$q', '$location', '$localStorage', function($q,
         },
         responseError: function(res) {
 			
-			console.log(res);
-			
             if(res.status === 401 || res.status === 403)
                 $location.path('/login');
 			

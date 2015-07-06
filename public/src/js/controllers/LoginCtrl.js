@@ -1,6 +1,9 @@
-app.controller('LoginCtrl', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
+app.controller('LoginCtrl', ['$scope', '$location', 'AuthService', 'NotificationService', function ($scope, $location, AuthService, NotificationService) {
 	
-	$scope.error = '';
+	$scope.form = {
+		username: '',
+		password: ''
+	}
 	
 	//check if user is already logged in
 	if(AuthService.check() !== false)
@@ -9,8 +12,10 @@ app.controller('LoginCtrl', ['$scope', '$location', 'AuthService', function ($sc
 	//login event
 	$scope.login = function() {
 		
+		console.log($scope.form.username);
+		
 		AuthService
-			.login($scope.username, $scope.password)
+			.login($scope.form.username, $scope.form.password)
 			.then(
 				function(res) {
 					
@@ -20,10 +25,12 @@ app.controller('LoginCtrl', ['$scope', '$location', 'AuthService', function ($sc
 				},
 				function(res) {
 					
+					console.log(res);
+					
 					if(res.status == 401)
-						$scope.error = 'Invalid credentials';
+						NotificationService.setError('Invalid credentials');
 					else
-						$scope.error = 'Something went wrong';
+						NotificationService.setError('Something went wrong');
 						
 				}
 			);

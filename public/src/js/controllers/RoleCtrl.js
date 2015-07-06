@@ -58,7 +58,6 @@ app.controller('RoleCtrl', ['$scope', 'Roles', function ($scope, Roles) {
 	$scope.update = function(index) {
 		
 		var role = $scope.roles[index];
-		console.log(role);
 		
 		Roles.update({id: role._id}, role);
 

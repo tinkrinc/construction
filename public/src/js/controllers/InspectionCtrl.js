@@ -1,23 +1,36 @@
-app.controller('InspectionCtrl', ['$scope', '$localStorage', 'Functions', 'Organizations', 'Projects', 'Inspections', function ($scope, $localStorage, Functions, Organizations, Projects, Inspections) {
+app.controller('InspectionCtrl', ['$scope', '$localStorage', 'Functions', 'Organizations', 'Projects', 'Inspections', 'NotificationService', function ($scope, $localStorage, Functions, Organizations, Projects, Inspections, NotificationService) {
 	
-	$scope.organizations = Organizations.query(function(res) {
-		$scope.organizations = res;
-		
-		$scope.contextOrganization = ($localStorage.organization) ? Functions.search_array($localStorage.organization._id, $scope.organizations) :  $scope.organizations[0];
-		
-		Projects.query({ organization: $scope.contextOrganization._id }, function(res) {
-			$scope.projects = res;
-			
-			if($scope.projects.length > 0) {
-				$scope.contextProject = $scope.projects[0];
+	$scope.organizations = Organizations.query().$promise.then(
+			function(res) {
 				
-				Inspections.query({ project: $scope.contextProject._id }, function(res) {
-					$scope.inspections = res;
-				});
+				$scope.organizations = res;
+		
+				$scope.contextOrganization = ($localStorage.organization) ? Functions.search_array($localStorage.organization._id, $scope.organizations) :  $scope.organizations[0];
+				
+				return Projects.query({ organization: $scope.contextOrganization._id }).$promise;
+				
 			}
+		).then(
+			function(res) {
+				
+				$scope.projects = res;
+				
+				if($scope.projects.length > 0) {
+					$scope.contextProject = $scope.projects[0];
+					
+					return Inspections.query({ project: $scope.contextProject._id }).$promise;
+				}
+				
+			}
+		).then(
+			function(res) {
+				
+				$scope.inspections = res;
+				
+			}
+		).catch(function(e) {
+			NotificationService.setError('Unable to load organization data');
 		});
-	});
-	
 	
 	$scope.save = function() {
 		
@@ -51,16 +64,23 @@ app.controller('InspectionCtrl', ['$scope', '$localStorage', 'Functions', 'Organ
 		
 		$localStorage.organization = $scope.contextOrganization;
 		
-		Projects.query({ organization: $scope.contextOrganization._id }, function(res) {
-			$scope.projects = res;
+		Projects.query({ organization: $scope.contextOrganization._id }).$promise.then(
+			function(res) {
+				
+				$scope.projects = res;
 			
-			if($scope.projects.length > 0) {
-				$scope.contextProject = $scope.projects[0];
-				$scope.updateContextInspection();
-			} else {
-				$scope.inspections = [];
+				if($scope.projects.length > 0) {
+					$scope.contextProject = $scope.projects[0];
+					$scope.updateContextInspection();
+				} else {
+					$scope.inspections = [];
+				}
+				
+			},
+			function(res) {
+				NotificationService.setError('Unable to load organization data');
 			}
-		});
+		);
 		
 	}
 	
@@ -68,9 +88,14 @@ app.controller('InspectionCtrl', ['$scope', '$localStorage', 'Functions', 'Organ
 		
 		$localStorage.project = $scope.contextProject;
 		
-		Inspections.query({ project: $scope.contextProject._id }, function(res) {
-			$scope.inspections = res;
-		});
+		Inspections.query({ project: $scope.contextProject._id }).$promise.then(
+			function(res) {
+				$scope.inspections = res;
+			},
+			function(res) {
+				NotificationService.setError('Unable to load project data');
+			}
+		);
 		
 	}
 	

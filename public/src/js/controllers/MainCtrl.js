@@ -1,14 +1,16 @@
-app.controller('MainCtrl', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
-	
+app.controller('MainCtrl', ['$scope', '$location', 'AuthService', 'NotificationService', function ($scope, $location, AuthService, NotificationService) {
+
 	$scope.logout = function() {
-		
+
 		AuthService
 			.logout()
 			.then(
 				function(res) {
 					$location.path('/login');
 				},
-				function(res) {}
+				function(res) {
+					//console.log(res);
+				}
 			);
 		
 	}
